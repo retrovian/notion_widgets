@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+  <link href="./css/thumbnail-gallery.css" rel="stylesheet" />
+
+  <style>
+    /* Add your custom styles here */
+  </style>
+
+</head>
+
+<body>
+
+  <main>
+    <div id="tumor-galleries"></div>
+
+    <script>
+      const tumorTypes = [
+        {
+          name: 'Osteochondroma',
+          imageCount: 11
+        },
+        {
+          name: 'ClearCell',
+          imageCount: 9
+        },
+        // Add more tumor types here
+      ];
+
+      const generateGallery = (tumorType) => {
+        let gallery = `
+          <section id="${tumorType.name}-gallery">
+            <h2>${tumorType.name}</h2>
+            <div class=" gallery-container container">
+              <div class="tz-gallery">
+                <div class="row">`;
+
+        for (let i = 1; i <= tumorType.imageCount; i++) {
+          gallery += `
+                  <div data-aos="flip-up" class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                      <a class="lightbox" href="${tumorType.name}/${i}.jpg">
+                        <img src="${tumorType.name}/${i}.jpg">
+                      </a>
+                    </div>
+                  </div>`;
+        }
+
+        gallery += `
+                </div>
+              </div>
+            </div>
+          </section>`;
+        return gallery;
+      };
+
+      const tumorGalleries = tumorTypes.map(generateGallery).join('');
+      document.getElementById('tumor-galleries').innerHTML = tumorGalleries;
+
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+    <script>
+      baguetteBox.run('.tz-gallery');
+    </script>
+
+  </main>
+
+</body>
+
+</html>
