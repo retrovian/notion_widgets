@@ -8,7 +8,38 @@
   <link href="./css/thumbnail-gallery.css" rel="stylesheet" />
 
   <style>
-    /* Add your custom styles here */
+    .tz-gallery {
+      padding: 40px;
+    }
+
+    .tz-gallery .thumbnail {
+      padding: 0;
+      margin-bottom: 30px;
+      background-color: #fff;
+      border-radius: 4px;
+      border: none;
+      transition: 0.15s ease-in-out;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);
+    }
+
+    .tz-gallery .thumbnail:hover {
+      transform: translateY(-10px) scale(1.02);
+    }
+
+    .baguetteBox-button {
+      background-color: transparent !important;
+    }
+
+
+    .carousel-inner>.item>a>img,
+    .carousel-inner>.item>img,
+    .img-responsive,
+    .thumbnail a>img,
+    .thumbnail>img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
   </style>
 
 </head>
@@ -16,60 +47,31 @@
 <body>
 
   <main>
-    <div id="tumor-galleries"></div>
-
-    <script>
-      const tumorTypes = [
-        {
-          name: 'Osteochondroma',
-          imageCount: 11
-        },
-        {
-          name: 'ClearCell',
-          imageCount: 9
-        },
-        // Add more tumor types here
-      ];
-
-      const generateGallery = (tumorType) => {
-        let gallery = `
-          <section id="${tumorType.name}-gallery">
-            <h2>${tumorType.name}</h2>
-            <div class=" gallery-container container">
-              <div class="tz-gallery">
-                <div class="row">`;
-
-        for (let i = 1; i <= tumorType.imageCount; i++) {
-          gallery += `
-                  <div data-aos="flip-up" class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                      <a class="lightbox" href="${tumorType.name}/${i}.jpg">
-                        <img src="${tumorType.name}/${i}.jpg">
-                      </a>
-                    </div>
-                  </div>`;
-        }
-
-        gallery += `
+    <section id="gallery">
+      <div class=" gallery-container container">
+        <div class="tz-gallery">
+          <div class="row">
+            <!-- Manually created elements for each image -->
+            <% for (let i = 1; i <= 11; i++) { %>
+              <div data-aos="flip-up" class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                  <!-- Replace the image file paths with the correct folder and file format -->
+                  <a class="lightbox" href="Osteochondroma/<%= i %>.jpg">
+                    <img src="Osteochondroma/<%= i %>.jpg">
+                  </a>
                 </div>
               </div>
-            </div>
-          </section>`;
-        return gallery;
-      };
+            <% } %>
+          </div>
+        </div>
+      </div>
 
-      const tumorGalleries = tumorTypes.map(generateGallery).join('');
-      document.getElementById('tumor-galleries').innerHTML = tumorGalleries;
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+      <script>
+        baguetteBox.run('.tz-gallery');
+      </script>
 
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
-    <script>
-      baguetteBox.run('.tz-gallery');
-    </script>
-
+    </section>
   </main>
-
-</body>
 
 </html>
